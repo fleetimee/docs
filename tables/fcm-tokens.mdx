@@ -1,0 +1,106 @@
+---
+title: "FCM Tokens"
+description: "Digunakan untuk menyimpan token FCM (Firebase Cloud Messaging) yang digunakan untuk mengirimkan notifikasi ke perangkat pengguna."
+icon: "bell"
+---
+
+## Migration DDL
+
+#### DDL
+
+Script DDL untuk membuat tabel `fcm_tokens`.
+
+```sql
+-- auto-generated definition
+CREATE TABLE fcm_token
+(
+    id            uuid      DEFAULT gen_random_uuid() NOT NULL
+        PRIMARY KEY,
+    token         text                                NOT NULL,
+    user_id       uuid                                NOT NULL
+        CONSTRAINT fcm_token_user_id_users_id_fk
+            REFERENCES users
+            ON UPDATE CASCADE ON DELETE CASCADE,
+    created_at    timestamp DEFAULT NOW()             NOT NULL,
+    updated_at    timestamp DEFAULT NOW()             NOT NULL,
+    last_accessed timestamp DEFAULT NOW()             NOT NULL,
+    model         text
+);
+
+ALTER TABLE fcm_token
+    OWNER TO doadmin;
+
+
+```
+
+#### Seed Data
+
+Beberapa data contoh yang bisa diinsertkan ke tabel `fcm_token`.
+
+```sql
+INSERT INTO public.fcm_token (id, token, user_id, created_at, updated_at, last_accessed, model) VALUES ('99abcfb4-30a5-45f0-b825-86e26cc39195', 'cxRnkFOcSbm3X2w0LQI6LW:APA91bFuPUY6nJYWl6UwW4Y4jlYy8qpYgpokcis8db9YrTF28Eh6vPtKYSBJ48Ed03tPDk5vBUPbyqrjasvp897GQiJAyQ2ZU5xC0Fvj24woqjhVyciTBk6bWZBrAN_hresK-zGEeZLz', '665656ba-4937-4dc0-b120-ca19bf047733', '2024-09-18 07:46:29.105735', '2024-09-18 07:46:29.105735', '2024-09-18 07:49:35.993000', 'V816.0.3.0.TKEIDXM REL  fleur unknown POCO fleur 2201117PG');
+INSERT INTO public.fcm_token (id, token, user_id, created_at, updated_at, last_accessed, model) VALUES ('a86f6ec9-6560-4c13-b0a4-22a171c1be74', 'en16ze59mE_Lrj7Q_givnA:APA91bH4CQ1ACSQ7MGh7VyMg5M1rk5FuaYpbNTd4ASSAGMGpxkU8ydMlOjU0O5rVDXBwB3Vz-ZSfPUb1guAjaNNnVGHpbVdN5vp4ThczBUlPY2AoN1IHXrpyRq8Wft-DqSmvWBHGiCqy', 'cb4292f2-fc77-4fa2-950d-f2a98e3b1bb7', '2024-08-31 06:00:50.835892', '2024-08-31 06:00:50.835892', '2024-09-09 02:07:22.021000', 'iPhone 16.7.10 iPhone true Darwin LibraaO 22.6.0 Darwin Kernel Version 22.6.0: Tue Jul  2 20:47:35 PDT 2024; root:xnu-8796.142.1.703.8~1/RELEASE_ARM64_T8015 iPhone10,3');
+INSERT INTO public.fcm_token (id, token, user_id, created_at, updated_at, last_accessed, model) VALUES ('c71e75ae-a037-452f-95de-2427704a1e30', 'ec_bFK0aSyGkVpu78vQRjS:APA91bE_KJcj9-JdMfluezRiBRMQ26gGe97-DT8yfZBx_gSXXWfNYWJANpglluuj7qndX6yzMKqdRNC4TIUmxzM6hHGKK4OQTOxFkz0ogz6M8m5_UXlJyZxo5fZx-wrPx5_5oWQz4a9w', 'fcd8c164-4b9d-4e73-9360-fa388fbce2e3', '2024-09-06 05:05:48.409129', '2024-09-06 05:05:48.409129', '2024-09-08 09:11:05.945000', 'V816.0.4.0.UGPIDXM REL  gust unknown Redmi gust 23108RN04Y');
+```
+
+## Columns
+
+#### id
+
+- **Type:** `string`
+- **Required:** `true`
+- **Description:** ID UUID unique dari token FCM.
+
+```bash
+{
+  "id": "f7b3b2b3-4b1b-4b1b-4b1b-4b1b4b1b4b1b",
+}
+```
+
+#### token
+
+- **Type:** `string`
+- **Required:** `true`
+- **Description:** Token FCM yang digunakan untuk mengirimkan notifikasi ke perangkat pengguna.
+
+```bash
+{
+    "token": "cxRnkFOcSbm3X2w0LQI6LW:APA91bFuPUY6nJYWl6UwW4Y4jlYy8qpYgpokcis8db9YrTF28Eh6vPtKYSBJ48Ed03tPDk5vBUPbyqrjasvp897GQiJAyQ2ZU5xC0Fvj24woqjhVyciTBk6bWZBrAN_hresK-zGEeZLz",
+}
+```
+
+#### user_id
+
+- **Type:** `string`
+- **Required:** `true`
+- **Description:** ID user yang terkait dengan token FCM
+
+```bash
+{
+    "user_id": "665656ba-4937-4dc0-b120-ca19bf047733",
+}
+```
+
+#### created_at
+
+- **Type:** `timestamp`
+- **Required:** `true`
+- **Description:** Waktu data dibuat.
+
+```bash
+{
+  "created_at": "2024-09-18 07:46:29.105735",
+}
+```
+
+#### updated_at
+
+- **Type:** `timestamp`
+- **Required:** `true`
+- **Description:** Waktu data diupdate.
+
+```bash
+{
+  "updated_at": "2024-09-18 07:46:29.105735",
+}
+```

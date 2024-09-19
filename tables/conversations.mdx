@@ -1,0 +1,93 @@
+---
+title: "Conversation"
+description: "Digunakan untuk menyimpan data percakapan idols."
+icon: "rocketchat"
+---
+
+## Migration DDL
+
+#### DDL
+
+Script DDL untuk membuat tabel `conversation`.
+
+```sql
+-- auto-generated definition
+CREATE TABLE conversation
+(
+    id         uuid      DEFAULT gen_random_uuid() NOT NULL
+        CONSTRAINT conversation_id_unique
+            PRIMARY KEY,
+    idol_id    varchar(10)                         NOT NULL
+        CONSTRAINT conversation_idol_id_unique
+            UNIQUE
+        CONSTRAINT conversation_idol_id_idol_id_fk
+            REFERENCES idols
+            ON UPDATE CASCADE ON DELETE CASCADE,
+    created_at timestamp DEFAULT NOW()             NOT NULL,
+    updated_at timestamp DEFAULT NOW()             NOT NULL
+);
+
+ALTER TABLE conversation
+    OWNER TO doadmin;
+
+```
+
+#### Seed Data
+
+Beberapa data contoh yang bisa diinsertkan ke tabel `conversation`.
+
+```sql
+INSERT INTO public.conversation (id, idol_id, created_at, updated_at) VALUES ('4b27af39-11a5-4f06-9ddf-d0b84e2fd029', 'JKT48-1', '2024-02-29 15:37:46.000000', '2024-02-29 15:37:49.000000');
+INSERT INTO public.conversation (id, idol_id, created_at, updated_at) VALUES ('4bcbef6b-87e8-494a-90c9-c5b3c46a94d5', 'JKT48-2', '2024-02-29 15:37:58.000000', '2024-02-29 15:38:00.000000');
+INSERT INTO public.conversation (id, idol_id, created_at, updated_at) VALUES ('097667d9-be00-43a6-a783-842fc2768522', 'JKT48-3', '2024-02-29 15:38:20.000000', '2024-02-29 15:38:22.000000');
+```
+
+## Columns
+
+#### id
+
+- **Type:** `string`
+- **Required:** `true`
+- **Description:** ID UUID unique dari data percakapan.
+
+```bash
+{
+  "id": "f7b3b2b3-4b1b-4b1b-4b1b-4b1b4b1b4b1b",
+}
+```
+
+#### idol_id
+
+- **Type:** `string`
+- **Required:** `true`
+- **Description:** ID dari idol yang terlibat dalam percakapan.
+
+```bash
+{
+  "idol_id": "JKT48-1",
+}
+```
+
+#### created_at
+
+- **Type:** `timestamp`
+- **Required:** `true`
+- **Description:** Waktu pembuatan data percakapan.
+
+```bash
+{
+  "created_at": "2024-02-29 15:37:46.000000",
+}
+```
+
+#### updated_at
+
+- **Type:** `timestamp`
+- **Required:** `true`
+- **Description:** Waktu data percakapan diupdate.
+
+```bash
+{
+  "updated_at": "2024-02-29 15:37:49.000000",
+}
+```

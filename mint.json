@@ -2,60 +2,42 @@
   "$schema": "https://mintlify.com/schema.json",
   "name": "Starter Kit",
   "logo": {
-    "dark": "/logo/dark.svg",
-    "light": "/logo/light.svg"
+    "dark": "/logo/email_logo.png",
+    "light": "/logo/email_logo.png"
   },
   "favicon": "/favicon.svg",
   "colors": {
-    "primary": "#0D9373",
-    "light": "#07C983",
-    "dark": "#0D9373",
+    "primary": "#FF69B4",
+    "light": "#FFB6C1",
+    "dark": "#FF1493",
     "anchors": {
-      "from": "#0D9373",
-      "to": "#07C983"
+      "from": "#FF69B4",
+      "to": "#FFB6C1"
     }
   },
-  "topbarLinks": [
-    {
-      "name": "Support",
-      "url": "mailto:hi@mintlify.com"
-    }
-  ],
-  "topbarCtaButton": {
-    "name": "Dashboard",
-    "url": "https://dashboard.mintlify.com"
-  },
+
   "tabs": [
     {
       "name": "API Reference",
       "url": "api-reference"
     }
   ],
-  "anchors": [
-    {
-      "name": "Documentation",
-      "icon": "book-open-cover",
-      "url": "https://mintlify.com/docs"
-    },
-    {
-      "name": "Community",
-      "icon": "slack",
-      "url": "https://mintlify.com/community"
-    },
-    {
-      "name": "Blog",
-      "icon": "newspaper",
-      "url": "https://mintlify.com/blog"
-    }
-  ],
   "navigation": [
     {
       "group": "Get Started",
+      "pages": ["introduction", "quickstart", "development"]
+    },
+
+    {
+      "group": "Tables",
       "pages": [
-        "introduction",
-        "quickstart",
-        "development"
-      ]
+        "tables/birthday-message",
+        "tables/conversations",
+        "tables/fcm-tokens",
+        "tables/idol",
+        "tables/idol-top"
+      ],
+      "icon": "table"
     },
     {
       "group": "Essentials",
@@ -70,9 +52,7 @@
     },
     {
       "group": "API Documentation",
-      "pages": [
-        "api-reference/introduction"
-      ]
+      "pages": ["api-reference/introduction"]
     },
     {
       "group": "Endpoint Examples",
@@ -87,5 +67,6 @@
     "x": "https://x.com/mintlify",
     "github": "https://github.com/mintlify",
     "linkedin": "https://www.linkedin.com/company/mintsearch"
-  }
+  },
+  "theme": "prism"
 }

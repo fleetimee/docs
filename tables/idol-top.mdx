@@ -1,0 +1,64 @@
+---
+title: "Idol Top"
+description: "Digunakan untuk menyimpan data leaderboard idol berdasarkan jumlah subscription tiap minggu"
+icon: "caret-up"
+---
+
+## Migration DDL
+
+#### DDL
+
+Script DDL untuk membuat tabel `idol_top`.
+
+```sql
+-- auto-generated definition
+CREATE TABLE idol_top
+(
+    id_idol            varchar(10) NOT NULL
+        CONSTRAINT idol_top_id_idol_unique
+            PRIMARY KEY
+        CONSTRAINT idol_top_id_idol_idol_id_fk
+            REFERENCES idol
+            ON UPDATE CASCADE ON DELETE CASCADE,
+    subscription_count integer
+);
+
+ALTER TABLE idol_top
+    OWNER TO doadmin;
+
+```
+
+#### Seed Data
+
+Beberapa data contoh yang bisa diinsertkan ke tabel `idol_top`.
+
+```sql
+INSERT INTO public.idol_top (id_idol, subscription_count) VALUES ('JKT48-15', 0);
+INSERT INTO public.idol_top (id_idol, subscription_count) VALUES ('JKT48-23', 0);
+```
+
+## Columns
+
+#### id_idol
+
+- **Type:** `string`
+- **Required:** `true`
+- **Description:** ID unik dari idol.
+
+```bash
+{
+  "id_idol": "JKT48-1",
+}
+```
+
+#### subscription_count
+
+- **Type:** `integer`
+- **Required:** `true`
+- **Description:** Jumlah subscription idol, diinsert otomatis oleh scheduler tiap minggu.
+
+```bash
+{
+  "subscription_count": 0,
+}
+```

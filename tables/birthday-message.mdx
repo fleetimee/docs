@@ -1,0 +1,106 @@
+---
+title: "Birthday Messages"
+description: "Digunakan untuk menyimpan constant data ucapan ulang tahun idols yang akan dijadikan sebagai template pesan ulang tahun."
+icon: "cake-candles"
+---
+
+## Migration DDL
+
+#### DDL
+
+Script DDL untuk membuat tabel `birthday_message`.
+
+```sql
+CREATE TABLE birthday_message
+(
+    id         uuid      DEFAULT gen_random_uuid() NOT NULL
+        CONSTRAINT birthday_message_id_unique
+            PRIMARY KEY,
+    idol_id    varchar(10)                         NOT NULL
+        CONSTRAINT birthday_message_idol_id_idol_id_fk
+            REFERENCES idols
+            ON UPDATE CASCADE ON DELETE CASCADE,
+    message    varchar                             NOT NULL,
+    created_at timestamp DEFAULT NOW()             NOT NULL,
+    updated_at timestamp DEFAULT NOW()             NOT NULL
+);
+
+ALTER TABLE birthday_message
+    OWNER TO doadmin;
+
+```
+
+#### Seed Data
+
+Beberapa data contoh yang bisa diinsertkan ke tabel `birthday_message`.
+
+```sql
+INSERT INTO public.birthday_message (id, idol_id, message, created_at, updated_at) VALUES ('ae1bdc1f-058a-486c-9e1b-ce8c572844a0', 'JKT48-2', e'Hai kak {{nickname}}… ciee ulang tahunn, happy birthday yaa.  Semoga yang disemogakan tersemogakan hehe canda. Ngga, serius ni sekarang, semoga segala sesuatu dalam hidup kaka selalu dilancarkan yaa. Be the best version of yourself, everybody loves you ❤️ Including me too 🥰 Have a wonderful birthday dear, may god bless you.
+', '2024-05-04 04:43:35.812380', '2024-05-04 04:43:35.812380');
+INSERT INTO public.birthday_message (id, idol_id, message, created_at, updated_at) VALUES ('e26bf374-7a5f-4e74-80fe-f2c01e344cb2', 'JKT48-3', e'Hai kak {{nickname}}… ciee ulang tahunn, happy birthday yaa.  Semoga yang disemogakan tersemogakan hehe canda. Ngga, serius ni sekarang, semoga segala sesuatu dalam hidup kaka selalu dilancarkan yaa. Be the best version of yourself, everybody loves you ❤️ Including me too 🥰 Have a wonderful birthday dear, may god bless you.
+', '2024-05-04 04:43:35.812380', '2024-05-04 04:43:35.812380');
+INSERT INTO public.birthday_message (id, idol_id, message, created_at, updated_at) VALUES ('3593892e-4c36-471c-a018-7bbd4de9621e', 'JKT48-8', e'first of all jangan lupa untuk selalu bersyukur ya karena kamu udah lahir sebagai manusia hebat di dunia ini. pesan dari aku semoga kamu selalu bahagia, sabar, menghargai & mencintai diri kamu, menikmati semua proses perjalanan hidup kamu sampai kamu menjadi orang sukses! semoga di tahun ini kamu selalu upgrade diri kamu jadi versi yang terbaik ya. wish u all the best n enjoy ur special day bro’sist! 💘⚡️🧚🏻
+', '2024-05-04 04:43:35.812380', '2024-05-04 04:43:35.812380');
+```
+
+## Columns
+
+#### id
+
+- **Type:** `string`
+- **Required:** `true`
+- **Description:** ID UUID unique dari data ucapan ulang tahun.
+
+```bash
+{
+  "id": "f7b3b2b3-4b1b-4b1b-4b1b-4b1b4b1b4b1b",
+}
+```
+
+#### idol_id
+
+- **Type:** `string`
+- **Required:** `true`
+- **Description:** ID Idol yang diambil dan berelasi dengan tabel `idols`.
+
+```bash
+{
+  "idol_id": "JKT48-1",
+}
+```
+
+#### message
+
+- **Type:** `string`
+- **Required:** `true`
+- **Description:** Pesan ucapan ulang tahun yang akan dikirimkan.
+
+```bash
+{
+  "message": "Selamat ulang tahun, semoga panjang umur dan sehat selalu."
+}
+```
+
+#### created_at
+
+- **Type:** `timestamp`
+- **Required:** `true`
+- **Description:** Waktu data dibuat.
+
+```bash
+{
+  "created_at": "2021-08-01T00:00:00Z"
+}
+```
+
+#### updated_at
+
+- **Type:** `timestamp`
+- **Required:** `true`
+- **Description:** Waktu data diupdate.
+
+```bash
+{
+  "updated_at": "2021-08-01T00:00:00Z"
+}
+```

@@ -1,0 +1,98 @@
+---
+title: "Idol"
+description: "Digunakan untuk menyimpan data idols atau member JKT48."
+icon: "star"
+---
+
+## Migration DDL
+
+#### DDL
+
+Script DDL untuk membuat tabel `idol`.
+
+```sql
+-- auto-generated definition
+CREATE TABLE idol
+(
+    id            varchar(10) DEFAULT ('JKT48-'::text || NEXTVAL('idol_id_seq'::regclass)) NOT NULL
+        CONSTRAINT idol_id_unique
+            PRIMARY KEY,
+    given_name    text                                                                     NOT NULL,
+    family_name   text                                                                     NOT NULL,
+    horoscope     text                                                                     NOT NULL,
+    user_id       uuid                                                                     NOT NULL
+        CONSTRAINT idol_user_id_unique
+            UNIQUE
+        CONSTRAINT idol_user_id_users_id_fk
+            REFERENCES users
+            ON UPDATE CASCADE ON DELETE CASCADE,
+    bio           text,
+    height        text,
+    blood_type    text,
+    instagram_url text,
+    x_url         text
+);
+
+ALTER TABLE idol
+    OWNER TO doadmin;
+
+```
+
+#### Seed Data
+
+Beberapa data contoh yang bisa diinsertkan ke tabel `idol`.
+
+```sql
+INSERT INTO public.idol (id, given_name, family_name, horoscope, user_id, bio, height, blood_type, instagram_url, x_url) VALUES ('JKT48-1', 'Shania', 'Gracia', 'Scorpio', '665656ba-4937-4dc0-b120-ca19bf047733', 'Shania Gracia', '160 cm', 'O', 'https://www.instagram.com/shaniagracia/', 'https://www.instagram.com/shaniagracia/');
+INSERT INTO public.idol (id, given_name, family_name, horoscope, user_id, bio, height, blood_type, instagram_url, x_url) VALUES ('JKT48-2', 'Gabryela', 'Wijaya', 'Scorpio', 'cb4292f2-fc77-4fa2-950d-f2a98e3b1bb7', 'Gabryela Wijaya', '160 cm', 'O', 'https://www.instagram.com/gabryela.wijaya/', 'https://www.instagram.com/gabryela.wijaya/');
+```
+
+## Columns
+
+#### id
+
+- **Type:** `string`
+- **Required:** `true`
+- **Description:** ID unik dari idol.
+
+```bash
+{
+  "id": "JKT48-1",
+}
+```
+
+#### given_name
+
+- **Type:** `string`
+- **Required:** `true`
+- **Description:** Nama depan dari idol.
+
+```bash
+{
+  "given_name": "Shania",
+}
+```
+
+#### family_name
+
+- **Type:** `string`
+- **Required:** `true`
+- **Description:** Nama belakang dari idol.
+
+```bash
+{
+  "family_name": "Gracia",
+}
+```
+
+#### horoscope
+
+- **Type:** `string`
+- **Required:** `true`
+- **Description:** Zodiak dari idol.
+
+```bash
+{
+  "horoscope": "Scorpio",
+}
+```
